@@ -159,7 +159,7 @@ const audiosPadrao = [
         descricao: "Começando o dia em Zero State",
         categoria: "meditacao",
         duracao: "7:29",
-        arquivo: "Ho'oponopono oração da manhã.mp3"
+        arquivo: "HO’OPONOPONO ORAÇÃO DA MANHÃ.mp3"
     },
     {
         id: 8,
