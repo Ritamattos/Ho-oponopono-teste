@@ -1,4 +1,4 @@
-// ===== HO'OPONOPONO APP - VERSÃO LIMPA SEM ADMIN =====
+    // ===== HO'OPONOPONO APP - VERSÃO LIMPA SEM ADMIN =====
 
 // Desabilitar console em produção
 if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
@@ -143,7 +143,7 @@ const audiosPadrao = [
         descricao: "Removendo bloqueios financeiros",
         categoria: "abundancia",
         duracao: "8:37",
-        arquivo: "HO'OPONOPONO MÁGICO + EU SOU ｜Técnica de Reconexão com a Fonte da Abundância (1).mp3"
+        arquivo: "Técnica de Reconexão com a Fonte da Abundância.mp3"
     },
     {
         id: 6,
