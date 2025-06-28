@@ -175,7 +175,7 @@ const audiosPadrao = [
         descricao: "Faça essa meditação para perdoar a si mesma",
         categoria: "ensinamento",
         duracao: "15:45",
-        arquivo: "Autoperdão.mp3"
+        arquivo: "Meditação Ho’oponopono para Autoperdão ✨ (1).mp3"
     }
 ];
 
