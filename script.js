@@ -107,7 +107,7 @@ let modules = {};
 const audiosPadrao = [
     {
         id: 1,
-        nome: "Oração Original"
+        nome: "Oração Original",
         descricao: "Introdução suave às 4 frases sagradas",
         categoria: "meditacao",
         duracao: "10:30",
