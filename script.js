@@ -115,19 +115,19 @@ const audiosPadrao = [
     },
     {
         id: 2,
-        nome: "Os Três Selves Havaianos",
-        descricao: "Conectando com Unihipili, Uhane e Aumakua",
-        categoria: "ensinamento",
-        duracao: "15:45",
-        arquivo: "audios/tres-selves.mp3"
+        nome: "Meditação para Dormir",
+        descricao: "Faça essa meditação antes de dormir",
+        categoria: "meditação",
+        duracao: "10:57",
+        arquivo: "Meditação para Dormir.mp3"
     },
     {
         id: 3,
         nome: "Ho'oponopono para Dormir",
         descricao: "Limpeza noturna para sono reparador",
         categoria: "relaxamento",
-        duracao: "20:00",
-        arquivo: "audios/para-dormir.mp3"
+        duracao: "17:40",
+        arquivo: "Meditação Ho’oponopono Para Fazer Todos os Dias antes de Dormir.mp3"
     },
     {
         id: 4,
@@ -135,15 +135,15 @@ const audiosPadrao = [
         descricao: "Limpeza específica para vínculos amorosos",
         categoria: "relacionamentos",
         duracao: "12:15",
-        arquivo: "audios/relacionamentos.mp3"
+        arquivo: "Ho’oponopono para o amor.mp3"
     },
     {
         id: 5,
         nome: "Abundância e Prosperidade",
         descricao: "Removendo bloqueios financeiros",
         categoria: "abundancia",
-        duracao: "18:30",
-        arquivo: "audios/abundancia.mp3"
+        duracao: "8:37",
+        arquivo: "Técnica de Reconexão com a Fonte da Abundância.mp3"
     },
     {
         id: 6,
@@ -151,15 +151,15 @@ const audiosPadrao = [
         descricao: "Cura profunda com as ferramentas sagradas",
         categoria: "cura",
         duracao: "25:00",
-        arquivo: "audios/traumas.mp3"
+        arquivo: "Limpeza de Memorias.mp3"
     },
     {
         id: 7,
         nome: "Ho'oponopono Matinal",
         descricao: "Começando o dia em Zero State",
         categoria: "meditacao",
-        duracao: "8:45",
-        arquivo: "audios/matinal.mp3"
+        duracao: "7:29",
+        arquivo: "Ho'oponopono oração da manhã.mp3"
     },
     {
         id: 8,
@@ -167,7 +167,15 @@ const audiosPadrao = [
         descricao: "Liberando mágoas profundas",
         categoria: "cura",
         duracao: "16:20",
-        arquivo: "audios/perdao.mp3"
+        arquivo: "Cura, paz, gratidão e perdão.mp3"
+        },
+    {
+        id: 9,
+        nome: "Autoperdão",
+        descricao: "Faça essa meditação para perdoar a si mesma",
+        categoria: "ensinamento",
+        duracao: "15:45",
+        arquivo: "Autoperdão.mp3"
     }
 ];
 
