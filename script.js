@@ -110,7 +110,7 @@ const audiosPadrao = [
         nome: "Oração Original",
         descricao: "Introdução suave às 4 frases sagradas",
         categoria: "meditacao",
-        duracao: "10:30",
+        duracao: "6:38",
         arquivo: "Ho'oponopono - Oração Original.mp3"
     },
     {
