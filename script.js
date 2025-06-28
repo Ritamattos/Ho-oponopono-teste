@@ -1444,9 +1444,6 @@ function criarCardAudio(audio) {
                 <button onclick="baixarAudio('${audio.arquivo}', '${audio.nome}')" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 0.8em; flex: 1;">
                     📥 Download
                 </button>
-                <button onclick="compartilharAudio('${audio.nome}', '${audio.descricao}')" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 0.8em; flex: 1;">
-                    📤 Compartilhar
-                </button>
             </div>
         </div>
     `;
