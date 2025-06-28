@@ -107,11 +107,11 @@ let modules = {};
 const audiosPadrao = [
     {
         id: 1,
-        nome: "Meditação Básica Ho'oponopono",
+        nome: "Oração Original"
         descricao: "Introdução suave às 4 frases sagradas",
         categoria: "meditacao",
         duracao: "10:30",
-        arquivo: "audios/meditacao-basica.mp3"
+        arquivo: "Ho'oponopono - Oração Original.mp3"
     },
     {
         id: 2,
