@@ -143,7 +143,7 @@ const audiosPadrao = [
         descricao: "Removendo bloqueios financeiros",
         categoria: "abundancia",
         duracao: "8:37",
-        arquivo: "HO'OPONOPONO MÁGICO + EU SOU ｜Técnica de Reconexão com a Fonte da Abundância.mp3"
+        arquivo: "HO'OPONOPONO MÁGICO + EU SOU ｜Técnica de Reconexão com a Fonte da Abundância (1).mp3"
     },
     {
         id: 6,
