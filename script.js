@@ -135,7 +135,7 @@ const audiosPadrao = [
         descricao: "Limpeza específica para vínculos amorosos",
         categoria: "relacionamentos",
         duracao: "12:15",
-        arquivo: "Ho’oponopono para o amor.mp3"
+        arquivo: "Ho’oponopono para o amor - curar, atrair e manter um relacionamento feliz.mp3"
     },
     {
         id: 5,
