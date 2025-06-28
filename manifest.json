@@ -11,27 +11,25 @@
     "scope": "/",
     "icons": [
         {
-            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style='background: linear-gradient(135deg, %238b5cf6, %2310b981); border-radius: 20px; padding: 20px;'><text y='60' x='50' text-anchor='middle' font-size='40' fill='white'>🙏</text></svg>",
+            "src": "icon-180.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icon-192.png",
             "sizes": "192x192",
-            "type": "image/svg+xml",
+            "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' style='background: linear-gradient(135deg, %238b5cf6, %2310b981); border-radius: 20px; padding: 15px;'><text y='60' x='50' text-anchor='middle' font-size='35' fill='white'>🙏</text></svg>",
+            "src": "icon-512.png",
             "sizes": "512x512",
-            "type": "image/svg+xml",
+            "type": "image/png",
             "purpose": "any maskable"
         }
     ],
     "categories": ["wellness", "lifestyle", "meditation", "spirituality"],
-    "screenshots": [
-        {
-            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 844' style='background: linear-gradient(45deg, %231a0033, %230a1f1f);'><rect width='390' height='844' fill='url(%23gradient)'/><defs><linearGradient id='gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a0033'/><stop offset='100%25' style='stop-color:%230a1f1f'/></linearGradient></defs><circle cx='195' cy='300' r='60' fill='%238b5cf6' opacity='0.8'/><text x='195' y='320' text-anchor='middle' font-size='40' fill='white'>🙏</text><text x='195' y='400' text-anchor='middle' font-size='24' fill='%23a78bfa' font-family='Arial'>Ho'oponopono</text><text x='195' y='430' text-anchor='middle' font-size='16' fill='%23c4b5fd' font-family='Arial'>Jornada de Cura e Transformação</text></svg>",
-            "sizes": "390x844",
-            "type": "image/svg+xml",
-            "form_factor": "narrow"
-        }
-    ],
     "shortcuts": [
         {
             "name": "Módulos",
