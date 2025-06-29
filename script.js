@@ -1292,3 +1292,211 @@ window.addEventListener('resize', function() {
 
 console.log('🌺 Ho\'oponopono App carregado com sucesso!');
 console.log('🎵 Biblioteca de áudios disponível com', audiosPadrao.length, 'áudios');
+// ===== CORREÇÃO DO BUG DO BOTÃO "CONTINUAR SEM INSTALAR" =====
+// Adicione este código no final do seu arquivo JavaScript, antes da linha final
+
+// CORREÇÃO 1: Função entrarApp completa e funcionando
+function entrarApp() {
+    console.log('🚀 Função entrarApp chamada');
+    
+    try {
+        const nomeInput = document.getElementById('name');
+        const splash = document.getElementById('splash');
+        const main = document.getElementById('main');
+        const welcome = document.getElementById('welcome');
+        
+        // Verificar se os elementos existem
+        if (!nomeInput || !splash || !main) {
+            console.error('❌ Elementos não encontrados');
+            alert('Erro: Elementos da página não encontrados!');
+            return;
+        }
+        
+        const nome = nomeInput.value.trim();
+        if (!nome) {
+            alert('Por favor, digite seu nome antes de continuar! 📝');
+            nomeInput.focus();
+            return;
+        }
+        
+        console.log('✅ Nome válido, iniciando app...');
+        
+        // Definir userName
+        userName = nome;
+        
+        // Salvar usuário
+        StorageManager.save(StorageManager.KEYS.USER, { nome, lastLogin: new Date().toISOString() });
+        
+        // Atualizar welcome
+        if (welcome) {
+            welcome.textContent = `Bem-vindo, ${nome}`;
+        }
+        
+        // Esconder splash e mostrar main
+        splash.style.display = 'none';
+        main.style.display = 'block';
+        
+        // Carregar dados na interface
+        try {
+            if (typeof carregarModulosNaInterface === 'function') {
+                carregarModulosNaInterface();
+            }
+            if (typeof carregarAudiosNaInterface === 'function') {
+                carregarAudiosNaInterface();
+            }
+            if (typeof atualizarDiario === 'function') {
+                atualizarDiario();
+            }
+        } catch (error) {
+            console.error('❌ Erro ao carregar dados:', error);
+        }
+        
+        console.log('✅ App iniciado com sucesso!');
+        
+        // Mostrar toast de sucesso
+        if (typeof ToastManager !== 'undefined') {
+            ToastManager.success(`Bem-vindo, ${nome}! 🌺`);
+        }
+        
+    } catch (error) {
+        console.error('❌ Erro na função entrarApp:', error);
+        alert('Erro ao iniciar o app: ' + error.message);
+    }
+}
+
+// CORREÇÃO 2: Garantir que os dados estão inicializados
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🌟 DOM carregado, verificando inicialização...');
+    
+    // Inicializar dados se não foram inicializados
+    if (typeof inicializarDadosPadrao === 'function') {
+        inicializarDadosPadrao();
+    }
+    
+    // Verificar se as variáveis globais existem
+    if (typeof userName === 'undefined') {
+        window.userName = '';
+    }
+    if (typeof diaryEntries === 'undefined') {
+        window.diaryEntries = [];
+    }
+    if (typeof modules === 'undefined') {
+        window.modules = {};
+    }
+    
+    // Configurar eventos no botão e campo
+    const nameInput = document.getElementById('name');
+    const btnIniciar = document.getElementById('btnIniciarJornada');
+    
+    if (nameInput) {
+        nameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                console.log('⌨️ Enter pressionado no campo nome');
+                entrarApp();
+            }
+        });
+        console.log('✅ Event listener Enter adicionado ao campo nome');
+    }
+    
+    if (btnIniciar) {
+        // Remover onclick anterior e adicionar novo
+        btnIniciar.removeAttribute('onclick');
+        btnIniciar.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🖱️ Botão clicado via addEventListener');
+            entrarApp();
+        });
+        console.log('✅ Event listener clique adicionado ao botão');
+    }
+    
+    console.log('🎉 Correções aplicadas com sucesso!');
+});
+
+// CORREÇÃO 3: Função de inicialização básica caso não exista
+if (typeof inicializarDadosPadrao === 'undefined') {
+    function inicializarDadosPadrao() {
+        console.log('📚 Inicializando dados padrão...');
+        
+        // Módulos básicos
+        const modulosPadrao = {
+            1: {
+                title: "Módulo 1: Descobrindo o Ho'oponopono",
+                description: "Introdução à prática havaiana - 3 páginas",
+                pages: [
+                    {
+                        title: "🌺 Aloha! Bem-vindo",
+                        content: `<p style="line-height: 1.8; font-size: 1.1em;">Você está prestes a descobrir uma antiga prática havaiana que tem o poder de transformar sua vida através do perdão, gratidão e amor.</p><div style="text-align: center; margin-top: 40px;"><p style="font-size: 1.3em; color: #10b981;">"A paz começa comigo"</p></div>`
+                    },
+                    {
+                        title: "As 4 Frases Sagradas",
+                        content: `<div style="background: rgba(139, 92, 246, 0.2); padding: 30px; border-radius: 15px; text-align: center;"><p style="font-size: 1.5em; margin: 15px 0; color: #10b981;">Sinto muito</p><p style="font-size: 1.5em; margin: 15px 0; color: #10b981;">Me perdoe</p><p style="font-size: 1.5em; margin: 15px 0; color: #10b981;">Te amo</p><p style="font-size: 1.5em; margin: 15px 0; color: #10b981;">Sou grato</p></div>`
+                    },
+                    {
+                        title: "Como Praticar",
+                        content: `<p style="line-height: 1.8; font-size: 1.1em;">Simplesmente repita as quatro frases sempre que surgir um problema, conflito ou memória dolorosa.</p><p style="line-height: 1.8; font-size: 1.1em; margin-top: 20px;">Não precisa entender, apenas confie no processo.</p>`
+                    }
+                ]
+            }
+        };
+
+        window.modules = modulosPadrao;
+        window.diaryEntries = StorageManager.load(StorageManager.KEYS.DIARY, []);
+        
+        console.log('✅ Dados padrão inicializados');
+    }
+}
+
+// CORREÇÃO 4: Garantir que StorageManager existe
+if (typeof StorageManager === 'undefined') {
+    window.StorageManager = {
+        KEYS: {
+            DIARY: 'hooponopono_diary',
+            USER: 'hooponopono_user'
+        },
+
+        save(key, data) {
+            try {
+                const serialized = JSON.stringify(data);
+                localStorage.setItem(key, serialized);
+                return true;
+            } catch (error) {
+                console.error('Erro ao salvar:', error);
+                return false;
+            }
+        },
+
+        load(key, defaultValue = null) {
+            try {
+                const item = localStorage.getItem(key);
+                if (item) {
+                    return JSON.parse(item);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar:', error);
+            }
+            return defaultValue;
+        }
+    };
+}
+
+// CORREÇÃO 5: ToastManager básico se não existir
+if (typeof ToastManager === 'undefined') {
+    window.ToastManager = {
+        success(message) {
+            console.log('✅ ' + message);
+            // Criar toast visual simples
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 15px 20px; border-radius: 10px; z-index: 10000; font-weight: bold;';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        },
+        
+        error(message) {
+            console.error('❌ ' + message);
+            alert('Erro: ' + message);
+        }
+    };
+}
+
+console.log('🔧 Correções de bug aplicadas com sucesso!');
