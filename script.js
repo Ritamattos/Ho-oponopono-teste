@@ -731,181 +731,126 @@ function criarNavegacaoCorrigida() {
         navExistente.remove();
     }
     
+    // Remover estilos existentes
+    const styleExistente = document.getElementById('navigation-styles');
+    if (styleExistente) {
+        styleExistente.remove();
+    }
+    
     // Criar nova navegação com a classe original
     const navigation = document.createElement('div');
     navigation.className = 'book-navigation';
     
     const isMobile = window.innerWidth <= 768;
     
-    // Aplicar os estilos exatos que você mostrou nas imagens
+    // Aplicar estilos inline diretamente para garantir que funcionem
     if (isMobile) {
-        // Mobile: bottom fixed, left/right margins
         navigation.style.cssText = `
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            transform: none;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            background: rgba(30, 0, 60, 0.9);
-            backdrop-filter: blur(20px);
-            padding: 12px 16px;
-            border-radius: 25px;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 1001;
-            flex-wrap: wrap;
+            position: fixed !important;
+            bottom: 10px !important;
+            left: 10px !important;
+            right: 10px !important;
+            transform: none !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            gap: 10px !important;
+            background: rgba(30, 0, 60, 0.9) !important;
+            backdrop-filter: blur(20px) !important;
+            padding: 12px 16px !important;
+            border-radius: 25px !important;
+            border: 1px solid rgba(139, 92, 246, 0.3) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+            z-index: 1001 !important;
+            width: auto !important;
+            max-width: calc(100vw - 20px) !important;
         `;
     } else {
-        // Desktop: centralizado exatamente como nas imagens
         navigation.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(15px, 4vw, 20px);
-            background: rgba(30, 0, 60, 0.9);
-            backdrop-filter: blur(20px);
-            padding: clamp(10px, 3vw, 15px) clamp(20px, 5vw, 30px);
-            border-radius: 25px;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 1001;
-            flex-wrap: wrap;
+            position: fixed !important;
+            bottom: 20px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 20px !important;
+            background: rgba(30, 0, 60, 0.9) !important;
+            backdrop-filter: blur(20px) !important;
+            padding: 15px 30px !important;
+            border-radius: 25px !important;
+            border: 1px solid rgba(139, 92, 246, 0.3) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+            z-index: 1001 !important;
+            width: auto !important;
         `;
     }
     
     navigation.innerHTML = `
-        <button id="prevBtn" class="nav-btn" onclick="paginaAnterior()">
-            ← Anterior
-        </button>
-        <div id="pageInfo" class="page-indicator">
-            Página ${currentPage} de ${totalPages}
-        </div>
-        <button id="nextBtn" class="nav-btn" onclick="proximaPagina()">
-            Próxima →
-        </button>
+        <button id="prevBtn" class="nav-btn" onclick="paginaAnterior()" style="
+            background: rgba(139, 92, 246, 0.8) !important;
+            border: 1px solid rgba(139, 92, 246, 0.8) !important;
+            color: white !important;
+            padding: ${isMobile ? '10px 8px' : '12px 20px'} !important;
+            border-radius: 20px !important;
+            cursor: pointer !important;
+            font-size: ${isMobile ? '0.8em' : '1em'} !important;
+            font-weight: 600 !important;
+            white-space: nowrap !important;
+            min-height: 44px !important;
+            ${isMobile ? 'flex: 1; max-width: 100px; min-width: 80px;' : ''}
+        ">← Anterior</button>
+        
+        <div id="pageInfo" class="page-indicator" style="
+            background: rgba(30, 0, 60, 0.8) !important;
+            backdrop-filter: blur(15px) !important;
+            padding: ${isMobile ? '8px 12px' : '10px 20px'} !important;
+            border-radius: 18px !important;
+            color: #e9d5ff !important;
+            font-size: ${isMobile ? '0.75em' : '0.9em'} !important;
+            border: 1px solid rgba(139, 92, 246, 0.3) !important;
+            font-weight: 600 !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            ${isMobile ? 'flex: 1; min-width: auto;' : 'min-width: 150px;'}
+        ">Página ${currentPage} de ${totalPages}</div>
+        
+        <button id="nextBtn" class="nav-btn" onclick="proximaPagina()" style="
+            background: rgba(139, 92, 246, 0.8) !important;
+            border: 1px solid rgba(139, 92, 246, 0.8) !important;
+            color: white !important;
+            padding: ${isMobile ? '10px 8px' : '12px 20px'} !important;
+            border-radius: 20px !important;
+            cursor: pointer !important;
+            font-size: ${isMobile ? '0.8em' : '1em'} !important;
+            font-weight: 600 !important;
+            white-space: nowrap !important;
+            min-height: 44px !important;
+            ${isMobile ? 'flex: 1; max-width: 100px; min-width: 80px;' : ''}
+        ">Próxima →</button>
     `;
-    
-    // Adicionar estilos CSS diretamente
-    adicionarEstilosNavegacao();
     
     document.body.appendChild(navigation);
+    
+    // Adicionar event listeners para hover
+    const buttons = navigation.querySelectorAll('.nav-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.background = 'rgba(139, 92, 246, 1) !important';
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.5) !important';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.background = 'rgba(139, 92, 246, 0.8) !important';
+            this.style.transform = 'none';
+            this.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.3) !important';
+        });
+    });
 }
 
-// ===== FUNÇÃO PARA ADICIONAR ESTILOS DA NAVEGAÇÃO =====
-function adicionarEstilosNavegacao() {
-    // Remover estilos existentes se houver
-    const styleExistente = document.getElementById('navigation-styles');
-    if (styleExistente) {
-        styleExistente.remove();
-    }
-    
-    const style = document.createElement('style');
-    style.id = 'navigation-styles';
-    style.textContent = `
-        .book-navigation {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(15px, 4vw, 20px);
-            background: rgba(30, 0, 60, 0.9);
-            backdrop-filter: blur(20px);
-            padding: clamp(10px, 3vw, 15px) clamp(20px, 5vw, 30px);
-            border-radius: 25px;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 1001;
-            flex-wrap: wrap;
-        }
-        
-        .nav-btn {
-            background: rgba(139, 92, 246, 0.8);
-            border: 1px solid rgba(139, 92, 246, 0.8);
-            color: white;
-            padding: clamp(10px, 3vw, 12px) clamp(16px, 4vw, 20px);
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: clamp(0.9em, 3vw, 1em);
-            transition: all 0.3s ease;
-            min-height: 44px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-            white-space: nowrap;
-        }
-        
-        .nav-btn:hover,
-        .nav-btn:active {
-            background: rgba(139, 92, 246, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
-        }
-        
-        .nav-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
-        }
-        
-        .page-indicator {
-            background: rgba(30, 0, 60, 0.8);
-            backdrop-filter: blur(15px);
-            padding: clamp(8px, 2vw, 10px) clamp(16px, 4vw, 20px);
-            border-radius: 18px;
-            color: #e9d5ff;
-            font-size: clamp(0.8em, 2.5vw, 0.9em);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            min-width: clamp(120px, 30vw, 150px);
-            white-space: nowrap;
-        }
-        
-        @media (max-width: 768px) {
-            .book-navigation {
-                position: fixed;
-                bottom: 10px;
-                left: 10px;
-                right: 10px;
-                transform: none;
-                flex-direction: row;
-                justify-content: space-between;
-                gap: 10px;
-                padding: 12px 16px;
-            }
-            
-            .nav-btn {
-                flex: 1;
-                max-width: 100px;
-                min-width: 80px;
-                padding: 10px 8px;
-                font-size: 0.8em;
-            }
-            
-            .page-indicator {
-                flex: 1;
-                min-width: auto;
-                font-size: 0.75em;
-                padding: 8px 12px;
-            }
-        }
-    `;
-    
-    document.head.appendChild(style);
-}
+// Remover a função adicionarEstilosNavegacao pois não é mais necessária
 
 // ===== FUNÇÕES DE NAVEGAÇÃO =====
 function paginaAnterior() {
@@ -975,12 +920,24 @@ function atualizarPagina() {
     
     if (prevBtn) {
         prevBtn.disabled = currentPage === 1;
-        prevBtn.style.opacity = currentPage === 1 ? '0.4' : '1';
+        if (currentPage === 1) {
+            prevBtn.style.opacity = '0.4 !important';
+            prevBtn.style.cursor = 'not-allowed !important';
+        } else {
+            prevBtn.style.opacity = '1 !important';
+            prevBtn.style.cursor = 'pointer !important';
+        }
     }
     
     if (nextBtn) {
         nextBtn.disabled = currentPage === totalPages;
-        nextBtn.style.opacity = currentPage === totalPages ? '0.4' : '1';
+        if (currentPage === totalPages) {
+            nextBtn.style.opacity = '0.4 !important';
+            nextBtn.style.cursor = 'not-allowed !important';
+        } else {
+            nextBtn.style.opacity = '1 !important';
+            nextBtn.style.cursor = 'pointer !important';
+        }
     }
 }
 
@@ -989,7 +946,7 @@ let navigationTimeout;
 let isNavigationVisible = true;
 
 function showNavigationCorrected() {
-    const nav = document.querySelector('.book-navigation-corrected');
+    const nav = document.querySelector('.book-navigation');
     if (nav) {
         nav.style.opacity = '1';
         nav.style.transform = window.innerWidth <= 768 ? 
@@ -999,7 +956,7 @@ function showNavigationCorrected() {
 }
 
 function hideNavigationCorrected() {
-    const nav = document.querySelector('.book-navigation-corrected');
+    const nav = document.querySelector('.book-navigation');
     if (nav) {
         nav.style.opacity = '0.6';
         nav.style.transform = window.innerWidth <= 768 ? 
@@ -1317,8 +1274,11 @@ window.tocarSomPagina = tocarSomPagina;
 // ===== EVENT LISTENER PARA REDIMENSIONAMENTO =====
 window.addEventListener('resize', function() {
     if (document.getElementById('book').style.display === 'block') {
-        criarNavegacaoCorrigida();
-        atualizarPagina();
+        // Pequeno delay para garantir que o resize foi processado
+        setTimeout(() => {
+            criarNavegacaoCorrigida();
+            atualizarPagina();
+        }, 100);
     }
 });    
 
