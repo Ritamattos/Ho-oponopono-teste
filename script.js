@@ -1664,17 +1664,18 @@ function abrirModulo(num) {
     const isMobile = window.innerWidth <= 768;
     
     if (isMobile) {
+        // Móvel: uma página por vez
         module.pages.forEach((page, index) => {
             const spreadDiv = document.createElement('div');
             spreadDiv.className = `page-spread ${index === 0 ? 'current' : 'hidden'}`;
             spreadDiv.id = `spread${index + 1}`;
             
             spreadDiv.innerHTML = `
-                <div class="page-left">
+                <div class="page-left" style="width: 100% !important;">
                     <div class="page-content" style="padding: 20px; padding-bottom: 80px; max-height: calc(100vh - 140px); overflow-y: auto;">
                         <h2 style="margin-bottom: 20px; color: #8b5cf6;">${page.title}</h2>
                         <div style="line-height: 1.6;">${page.content}</div>
-                        <div class="page-number" style="position: absolute; bottom: 100px; right: 20px; color: #666;">${index + 1}</div>
+                        <div class="page-number" style="position: absolute; bottom: 20px; right: 20px; color: #666;">${index + 1}</div>
                     </div>
                 </div>
             `;
@@ -1683,6 +1684,7 @@ function abrirModulo(num) {
         });
         totalPages = module.pages.length;
     } else {
+        // Desktop: duas páginas lado a lado
         totalPages = Math.ceil(module.pages.length / 2);
         
         for (let i = 0; i < module.pages.length; i += 2) {
@@ -1702,7 +1704,7 @@ function abrirModulo(num) {
                         <div class="page-content" style="padding: 20px; padding-bottom: 60px;">
                             <h2 style="margin-bottom: 20px; color: #8b5cf6;">${leftPage.title}</h2>
                             <div style="line-height: 1.6;">${leftPage.content}</div>
-                            <div class="page-number" style="position: absolute; bottom: 80px; left: 20px; color: #666;">${i + 1}</div>
+                            <div class="page-number" style="position: absolute; bottom: 20px; left: 20px; color: #666;">${i + 1}</div>
                         </div>
                     </div>
                 `;
@@ -1714,7 +1716,7 @@ function abrirModulo(num) {
                         <div class="page-content" style="padding: 20px; padding-bottom: 60px;">
                             <h2 style="margin-bottom: 20px; color: #8b5cf6;">${rightPage.title}</h2>
                             <div style="line-height: 1.6;">${rightPage.content}</div>
-                            <div class="page-number" style="position: absolute; bottom: 80px; right: 20px; color: #666;">${i + 2}</div>
+                            <div class="page-number" style="position: absolute; bottom: 20px; right: 20px; color: #666;">${i + 2}</div>
                         </div>
                     </div>
                 `;
@@ -1735,6 +1737,9 @@ function abrirModulo(num) {
         }
     }
     
+    // Criar a navegação corrigida
+    criarNavegacaoCorrigida();
+    
     document.getElementById('book').style.display = 'block';
     atualizarPagina();
     
@@ -1742,6 +1747,138 @@ function abrirModulo(num) {
         initNavigationAutoHide();
     }, 500);
 }
+
+// ===== FUNÇÃO PARA CRIAR NAVEGAÇÃO CORRIGIDA =====
+function criarNavegacaoCorrigida() {
+    // Remover navegação existente se houver
+    const navExistente = document.querySelector('.book-navigation-corrected');
+    if (navExistente) {
+        navExistente.remove();
+    }
+    
+    // Criar nova navegação
+    const navigation = document.createElement('div');
+    navigation.className = 'book-navigation-corrected';
+    
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Estilo móvel
+        navigation.style.cssText = `
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: rgba(30, 0, 60, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 12px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            z-index: 1001;
+        `;
+    } else {
+        // Estilo desktop
+        navigation.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            background: rgba(30, 0, 60, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            border-radius: 25px;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            z-index: 1001;
+        `;
+    }
+    
+    navigation.innerHTML = `
+        <button id="prevBtn" class="nav-btn-corrected" onclick="paginaAnterior()">
+            ← Anterior
+        </button>
+        <div id="pageInfo" class="page-indicator-corrected">
+            Página ${currentPage} de ${totalPages}
+        </div>
+        <button id="nextBtn" class="nav-btn-corrected" onclick="proximaPagina()">
+            Próxima →
+        </button>
+    `;
+    
+    // Adicionar estilos aos botões
+    const style = document.createElement('style');
+    style.textContent = `
+        .nav-btn-corrected {
+            background: rgba(139, 92, 246, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.8);
+            color: white;
+            padding: ${isMobile ? '10px 16px' : '12px 20px'};
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: ${isMobile ? '0.85em' : '1em'};
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            white-space: nowrap;
+        }
+        
+        .nav-btn-corrected:hover,
+        .nav-btn-corrected:active {
+            background: rgba(139, 92, 246, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+        
+        .nav-btn-corrected:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+        }
+        
+        .page-indicator-corrected {
+            background: rgba(30, 0, 60, 0.8);
+            backdrop-filter: blur(15px);
+            padding: ${isMobile ? '8px 16px' : '10px 20px'};
+            border-radius: 18px;
+            color: #e9d5ff;
+            font-size: ${isMobile ? '0.8em' : '0.9em'};
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: ${isMobile ? '120px' : '150px'};
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-btn-corrected {
+                flex: 1;
+                max-width: 90px;
+                padding: 10px 8px;
+                font-size: 0.8em;
+            }
+            
+            .page-indicator-corrected {
+                flex: 1;
+                min-width: auto;
+                font-size: 0.75em;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+    document.body.appendChild(navigation);
 
 function paginaAnterior() {
     if (currentPage > 1) {
@@ -1785,22 +1922,31 @@ function proximaPagina() {
 
 function fecharLivro() {
     document.getElementById('book').style.display = 'none';
+    
+    // Remover navegação personalizada
+    const navCorrigida = document.querySelector('.book-navigation-corrected');
+    if (navCorrigida) {
+        navCorrigida.remove();
+    }
 }
 
 function atualizarPagina() {
-    document.getElementById('pageInfo').textContent = `Página ${currentPage} de ${totalPages}`;
+    const pageInfo = document.getElementById('pageInfo');
+    if (pageInfo) {
+        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    }
     
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
     if (prevBtn) {
         prevBtn.disabled = currentPage === 1;
-        prevBtn.style.opacity = currentPage === 1 ? '0.3' : '1';
+        prevBtn.style.opacity = currentPage === 1 ? '0.4' : '1';
     }
     
     if (nextBtn) {
         nextBtn.disabled = currentPage === totalPages;
-        nextBtn.style.opacity = currentPage === totalPages ? '0.3' : '1';
+        nextBtn.style.opacity = currentPage === totalPages ? '0.4' : '1';
     }
 }
 
@@ -1808,30 +1954,32 @@ function atualizarPagina() {
 let navigationTimeout;
 let isNavigationVisible = true;
 
-function showNavigation() {
-    const nav = document.querySelector('.book-navigation');
+function showNavigationCorrected() {
+    const nav = document.querySelector('.book-navigation-corrected');
     if (nav) {
         nav.style.opacity = '1';
-        nav.style.transform = 'translateX(-50%) translateY(0)';
+        nav.style.transform = window.innerWidth <= 768 ? 
+            'translateY(0)' : 'translateX(-50%) translateY(0)';
         isNavigationVisible = true;
     }
 }
 
-function hideNavigation() {
-    const nav = document.querySelector('.book-navigation');
+function hideNavigationCorrected() {
+    const nav = document.querySelector('.book-navigation-corrected');
     if (nav) {
-        nav.style.opacity = '0.3';
-        nav.style.transform = 'translateX(-50%) translateY(20px)';
+        nav.style.opacity = '0.6';
+        nav.style.transform = window.innerWidth <= 768 ? 
+            'translateY(15px)' : 'translateX(-50%) translateY(15px)';
         isNavigationVisible = false;
     }
 }
 
 function resetNavigationTimer() {
     clearTimeout(navigationTimeout);
-    showNavigation();
+    showNavigationCorrected();
     
     navigationTimeout = setTimeout(() => {
-        hideNavigation();
+        hideNavigationCorrected();
     }, 3000);
 }
 
@@ -1846,7 +1994,6 @@ function initNavigationAutoHide() {
         resetNavigationTimer();
     }
 }
-
 // ===== EFEITOS SONOROS =====
 function criarSomPagina() {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -2131,6 +2278,11 @@ window.removerImagem = removerImagem;
 window.comentar = comentar;
 window.criarSomPagina = criarSomPagina;
 window.tocarSomPagina = tocarSomPagina;
-
+window.addEventListener('resize', function() {
+    if (document.getElementById('book').style.display === 'block') {
+        criarNavegacaoCorrigida();
+        atualizarPagina();
+    }
+});    
 console.log('🌺 Ho\'oponopono App carregado com sucesso!');
 console.log('🎵 Biblioteca de áudios disponível com', audiosPadrao.length, 'áudios');
