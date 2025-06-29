@@ -342,22 +342,23 @@
                     <button class="close-btn" onclick="fecharLivro()">✕</button>
                 </div>
 
+                <!-- Navegação ACIMA da página (para desktop e mobile) -->
+                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 15px; gap: 20px; flex-wrap: wrap;">
+                    <button id="prevBtn" onclick="paginaAnterior()" style="background: #8b5cf6; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 14px; transition: all 0.3s ease; min-height: 44px;">
+                        ← Anterior
+                    </button>
+                    <div style="color: #c4b5fd; font-size: 14px; text-align: center; min-width: 120px;">
+                        <span id="pageInfo">Página 1 de 1</span>
+                    </div>
+                    <button id="nextBtn" onclick="proximaPagina()" style="background: #8b5cf6; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 14px; transition: all 0.3s ease; min-height: 44px;">
+                        Próxima →
+                    </button>
+                </div>
+
                 <div class="flipbook-container">
                     <div class="book" id="flipbook">
                         <!-- Páginas serão inseridas dinamicamente -->
                     </div>
-                </div>
-
-                <div class="book-navigation">
-                    <button class="nav-btn" id="prevBtn" onclick="paginaAnterior()">
-                        ← Anterior
-                    </button>
-                    <div class="page-indicator">
-                        <span id="pageInfo">Página 1 de 1</span>
-                    </div>
-                    <button class="nav-btn" id="nextBtn" onclick="proximaPagina()">
-                        Próxima →
-                    </button>
                 </div>
             </div>
         </div>
