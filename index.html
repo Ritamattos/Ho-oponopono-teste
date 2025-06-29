@@ -420,6 +420,89 @@
             document.getElementById('splash').style.display = 'flex';
         }
 
+        // CORREÇÃO DA NAVEGAÇÃO DO BOOK READER
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adicionar CSS para corrigir a posição da navegação
+            const style = document.createElement('style');
+            style.textContent = `
+                /* Forçar navegação sobreposta no meio da página */
+                .book-navigation {
+                    position: absolute !important;
+                    bottom: 80px !important;
+                    left: 50% !important;
+                    transform: translateX(-50%) !important;
+                    z-index: 1000 !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    gap: 20px !important;
+                    background: rgba(0, 0, 0, 0.8) !important;
+                    backdrop-filter: blur(10px) !important;
+                    padding: 15px 25px !important;
+                    border-radius: 25px !important;
+                    border: 1px solid rgba(139, 92, 246, 0.3) !important;
+                    margin: 0 !important;
+                    width: auto !important;
+                }
+
+                .book-navigation .nav-btn {
+                    background: #8b5cf6 !important;
+                    color: white !important;
+                    border: none !important;
+                    padding: 12px 20px !important;
+                    border-radius: 10px !important;
+                    cursor: pointer !important;
+                    font-size: 14px !important;
+                    transition: all 0.3s ease !important;
+                    min-height: 44px !important;
+                }
+
+                .book-navigation .nav-btn:hover {
+                    background: #7c3aed !important;
+                    transform: translateY(-2px) !important;
+                }
+
+                .book-navigation .nav-btn:disabled {
+                    background: #666 !important;
+                    cursor: not-allowed !important;
+                    transform: none !important;
+                }
+
+                .book-navigation .page-indicator {
+                    color: #c4b5fd !important;
+                    font-size: 14px !important;
+                    text-align: center !important;
+                    min-width: 120px !important;
+                }
+
+                /* Mobile: manter sobreposto e centralizado */
+                @media (max-width: 768px) {
+                    .book-navigation {
+                        position: absolute !important;
+                        bottom: 60px !important;
+                        left: 50% !important;
+                        transform: translateX(-50%) !important;
+                        width: auto !important;
+                        max-width: calc(100vw - 40px) !important;
+                        padding: 12px 20px !important;
+                        gap: 15px !important;
+                    }
+
+                    .book-navigation .nav-btn {
+                        padding: 10px 15px !important;
+                        font-size: 12px !important;
+                        min-width: 80px !important;
+                    }
+
+                    .book-navigation .page-indicator {
+                        font-size: 12px !important;
+                        min-width: 100px !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
         // Log de inicialização
         console.log('🌺 Ho\'oponopono App carregado com sucesso!');
     </script>
