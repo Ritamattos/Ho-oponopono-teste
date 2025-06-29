@@ -726,19 +726,20 @@ function abrirModulo(num) {
 // ===== FUNÇÃO PARA CRIAR NAVEGAÇÃO CORRIGIDA =====
 function criarNavegacaoCorrigida() {
     // Remover navegação existente se houver
-    const navExistente = document.querySelector('.book-navigation-corrected');
+    const navExistente = document.querySelector('.book-navigation');
     if (navExistente) {
         navExistente.remove();
     }
     
-    // Criar nova navegação
+    // Criar nova navegação com a classe original
     const navigation = document.createElement('div');
-    navigation.className = 'book-navigation-corrected';
+    navigation.className = 'book-navigation';
     
     const isMobile = window.innerWidth <= 768;
     
+    // Aplicar os estilos exatos que você mostrou nas imagens
     if (isMobile) {
-        // Estilo móvel - exatamente como você tinha
+        // Mobile: bottom fixed, left/right margins
         navigation.style.cssText = `
             position: fixed;
             bottom: 10px;
@@ -760,7 +761,7 @@ function criarNavegacaoCorrigida() {
             flex-wrap: wrap;
         `;
     } else {
-        // Estilo desktop - centralizado como você queria
+        // Desktop: centralizado exatamente como nas imagens
         navigation.style.cssText = `
             position: fixed;
             bottom: 20px;
@@ -782,35 +783,54 @@ function criarNavegacaoCorrigida() {
     }
     
     navigation.innerHTML = `
-        <button id="prevBtn" class="nav-btn-corrected" onclick="paginaAnterior()">
+        <button id="prevBtn" class="nav-btn" onclick="paginaAnterior()">
             ← Anterior
         </button>
-        <div id="pageInfo" class="page-indicator-corrected">
+        <div id="pageInfo" class="page-indicator">
             Página ${currentPage} de ${totalPages}
         </div>
-        <button id="nextBtn" class="nav-btn-corrected" onclick="proximaPagina()">
+        <button id="nextBtn" class="nav-btn" onclick="proximaPagina()">
             Próxima →
         </button>
     `;
     
-    // Adicionar estilos aos botões
-    criarEstilosBotoes(isMobile);
+    // Adicionar estilos CSS diretamente
+    adicionarEstilosNavegacao();
     
     document.body.appendChild(navigation);
 }
 
-// ===== FUNÇÃO PARA CRIAR ESTILOS DOS BOTÕES =====
-function criarEstilosBotoes(isMobile) {
+// ===== FUNÇÃO PARA ADICIONAR ESTILOS DA NAVEGAÇÃO =====
+function adicionarEstilosNavegacao() {
     // Remover estilos existentes se houver
-    const styleExistente = document.getElementById('navigation-styles-corrected');
+    const styleExistente = document.getElementById('navigation-styles');
     if (styleExistente) {
         styleExistente.remove();
     }
     
     const style = document.createElement('style');
-    style.id = 'navigation-styles-corrected';
+    style.id = 'navigation-styles';
     style.textContent = `
-        .nav-btn-corrected {
+        .book-navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(15px, 4vw, 20px);
+            background: rgba(30, 0, 60, 0.9);
+            backdrop-filter: blur(20px);
+            padding: clamp(10px, 3vw, 15px) clamp(20px, 5vw, 30px);
+            border-radius: 25px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
             background: rgba(139, 92, 246, 0.8);
             border: 1px solid rgba(139, 92, 246, 0.8);
             color: white;
@@ -825,21 +845,21 @@ function criarEstilosBotoes(isMobile) {
             white-space: nowrap;
         }
         
-        .nav-btn-corrected:hover,
-        .nav-btn-corrected:active {
+        .nav-btn:hover,
+        .nav-btn:active {
             background: rgba(139, 92, 246, 1);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
         }
         
-        .nav-btn-corrected:disabled {
+        .nav-btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             transform: none;
             box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
         }
         
-        .page-indicator-corrected {
+        .page-indicator {
             background: rgba(30, 0, 60, 0.8);
             backdrop-filter: blur(15px);
             padding: clamp(8px, 2vw, 10px) clamp(16px, 4vw, 20px);
@@ -855,7 +875,19 @@ function criarEstilosBotoes(isMobile) {
         }
         
         @media (max-width: 768px) {
-            .nav-btn-corrected {
+            .book-navigation {
+                position: fixed;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                transform: none;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 10px;
+                padding: 12px 16px;
+            }
+            
+            .nav-btn {
                 flex: 1;
                 max-width: 100px;
                 min-width: 80px;
@@ -863,7 +895,7 @@ function criarEstilosBotoes(isMobile) {
                 font-size: 0.8em;
             }
             
-            .page-indicator-corrected {
+            .page-indicator {
                 flex: 1;
                 min-width: auto;
                 font-size: 0.75em;
@@ -920,13 +952,13 @@ function fecharLivro() {
     document.getElementById('book').style.display = 'none';
     
     // Remover navegação personalizada
-    const navCorrigida = document.querySelector('.book-navigation-corrected');
-    if (navCorrigida) {
-        navCorrigida.remove();
+    const nav = document.querySelector('.book-navigation');
+    if (nav) {
+        nav.remove();
     }
     
     // Remover estilos personalizados
-    const stylePersonalizado = document.getElementById('navigation-styles-corrected');
+    const stylePersonalizado = document.getElementById('navigation-styles');
     if (stylePersonalizado) {
         stylePersonalizado.remove();
     }
