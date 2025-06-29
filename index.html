@@ -271,53 +271,226 @@
         });
 
         function instalarApp() {
-            console.log('🔄 Tentando instalar app...');
+            console.log('🔄 Tentando instalação direta...');
             
             if (deferredPrompt) {
-                // PWA REAL DISPONÍVEL
-                console.log('✅ Instalando PWA real...');
+                // INSTALAÇÃO PWA REAL AUTOMÁTICA
+                console.log('✅ Instalando PWA automaticamente...');
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('🎉 PWA instalado com sucesso!');
+                        console.log('🎉 PWA instalado automaticamente!');
                         irParaTelaInicial();
                     } else {
-                        console.log('❌ Usuário cancelou a instalação PWA');
-                        // Perguntar se quer continuar
-                        setTimeout(() => {
-                            if (confirm('Deseja continuar usando o app no navegador?')) {
-                                irParaTelaInicial();
-                            }
-                        }, 500);
+                        console.log('❌ Usuário cancelou');
+                        irParaTelaInicial();
                     }
                     deferredPrompt = null;
                 });
             } else {
-                // DETECTAR TIPO DE DISPOSITIVO E BROWSER
+                // TENTAR MÉTODOS ALTERNATIVOS DE INSTALAÇÃO
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
                 const isAndroid = /Android/.test(navigator.userAgent);
-                const isChrome = /Chrome/.test(navigator.userAgent) && !/Edg/.test(navigator.userAgent);
-                const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
                 
-                console.log(`📱 Dispositivo: iOS=${isIOS}, Android=${isAndroid}, Chrome=${isChrome}, Safari=${isSafari}`);
-                
-                if (isIOS && isSafari) {
-                    // INSTRUÇÕES ESPECÍFICAS PARA iOS SAFARI
-                    alert('📱 Para instalar no iPhone:\n\n1️⃣ Toque no ícone "Compartilhar" (quadrado com seta)\n2️⃣ Role para baixo e toque em "Adicionar à Tela de Início"\n3️⃣ Toque em "Adicionar"\n\n✨ O app aparecerá na sua tela inicial!');
-                } else if (isAndroid && isChrome) {
-                    // FORÇAR MENU DO CHROME ANDROID
-                    alert('📱 Para instalar no Android:\n\n1️⃣ Toque no menu (3 pontos) no canto superior direito\n2️⃣ Toque em "Instalar app" ou "Adicionar à tela inicial"\n3️⃣ Confirme a instalação\n\n✨ O app será instalado como um app nativo!');
+                if (isIOS) {
+                    // TENTAR ADD TO HOMESCREEN PROGRAMÁTICO NO iOS
+                    try {
+                        if (window.navigator.standalone === false) {
+                            // Criar evento touch simulado
+                            const shareButton = document.createElement('button');
+                            shareButton.innerHTML = '📱 Toque aqui para instalar';
+                            shareButton.style.cssText = `
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: #007AFF;
+                                color: white;
+                                border: none;
+                                padding: 20px;
+                                border-radius: 15px;
+                                font-size: 18px;
+                                z-index: 9999;
+                                box-shadow: 0 10px 30px rgba(0,122,255,0.5);
+                            `;
+                            
+                            shareButton.onclick = () => {
+                                // Simular toque no botão de compartilhar
+                                if (navigator.share) {
+                                    navigator.share({
+                                        title: 'Ho\'oponopono App',
+                                        url: window.location.href
+                                    });
+                                } else {
+                                    // Mostrar instruções com visual melhor
+                                    mostrarInstrucoesIOS();
+                                }
+                                document.body.removeChild(shareButton);
+                                irParaTelaInicial();
+                            };
+                            
+                            document.body.appendChild(shareButton);
+                            
+                            // Auto-remove após 5 segundos
+                            setTimeout(() => {
+                                if (document.body.contains(shareButton)) {
+                                    document.body.removeChild(shareButton);
+                                    irParaTelaInicial();
+                                }
+                            }, 5000);
+                        }
+                    } catch (e) {
+                        mostrarInstrucoesIOS();
+                        irParaTelaInicial();
+                    }
+                } else if (isAndroid) {
+                    // TENTAR FORÇAR INSTALAÇÃO ANDROID
+                    try {
+                        // Tentar registrar service worker primeiro
+                        if ('serviceWorker' in navigator) {
+                            navigator.serviceWorker.register('/sw.js').then(() => {
+                                // Esperar um pouco e tentar trigger manual
+                                setTimeout(() => {
+                                    // Criar evento beforeinstallprompt sintético
+                                    window.dispatchEvent(new Event('beforeinstallprompt'));
+                                    mostrarInstrucoesAndroid();
+                                    irParaTelaInicial();
+                                }, 1000);
+                            });
+                        } else {
+                            mostrarInstrucoesAndroid();
+                            irParaTelaInicial();
+                        }
+                    } catch (e) {
+                        mostrarInstrucoesAndroid();
+                        irParaTelaInicial();
+                    }
                 } else {
-                    // GENÉRICO
-                    alert('📱 Para instalar este app:\n\n• Chrome: Menu → "Instalar app"\n• Safari: Compartilhar → "Adicionar à Tela de Início"\n• Firefox: Menu → "Instalar"\n\n✨ Funciona como um app real após instalação!');
-                }
-                
-                // SEMPRE CONTINUAR PARA O APP APÓS INSTRUÇÕES
-                setTimeout(() => {
-                    console.log('➡️ Continuando para o app...');
+                    // DESKTOP OU OUTROS
+                    mostrarInstrucoesGenericas();
                     irParaTelaInicial();
-                }, 2000);
+                }
             }
+        }
+
+        function mostrarInstrucoesIOS() {
+            // Criar modal visual ao invés de alert
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.9);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #1a0040, #3a0ca3); padding: 30px; border-radius: 20px; text-align: center; max-width: 350px; border: 2px solid #8b5cf6;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">📱</div>
+                    <h3 style="color: #10b981; margin-bottom: 20px;">Instalar no iPhone</h3>
+                    <div style="color: white; line-height: 1.6; margin-bottom: 20px;">
+                        <p>1️⃣ Toque no botão <strong style="color: #007AFF;">Compartilhar</strong> ⬆️</p>
+                        <p>2️⃣ Role para baixo</p>
+                        <p>3️⃣ Toque <strong style="color: #10b981;">"Adicionar à Tela de Início"</strong></p>
+                        <p>4️⃣ Toque <strong style="color: #10b981;">"Adicionar"</strong></p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: #10b981; color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; cursor: pointer;">
+                        ✅ Entendi
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            setTimeout(() => {
+                if (document.body.contains(modal)) {
+                    document.body.removeChild(modal);
+                }
+            }, 10000);
+        }
+
+        function mostrarInstrucoesAndroid() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.9);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #1a0040, #3a0ca3); padding: 30px; border-radius: 20px; text-align: center; max-width: 350px; border: 2px solid #8b5cf6;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">🤖</div>
+                    <h3 style="color: #10b981; margin-bottom: 20px;">Instalar no Android</h3>
+                    <div style="color: white; line-height: 1.6; margin-bottom: 20px;">
+                        <p>1️⃣ Toque no <strong style="color: #4285f4;">Menu</strong> (⋮) no canto superior</p>
+                        <p>2️⃣ Procure por <strong style="color: #10b981;">"Instalar app"</strong></p>
+                        <p>3️⃣ Ou <strong style="color: #10b981;">"Adicionar à tela inicial"</strong></p>
+                        <p>4️⃣ Confirme a instalação</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: #10b981; color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; cursor: pointer;">
+                        ✅ Entendi
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            setTimeout(() => {
+                if (document.body.contains(modal)) {
+                    document.body.removeChild(modal);
+                }
+            }, 10000);
+        }
+
+        function mostrarInstrucoesGenericas() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.9);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, #1a0040, #3a0ca3); padding: 30px; border-radius: 20px; text-align: center; max-width: 350px; border: 2px solid #8b5cf6;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">💻</div>
+                    <h3 style="color: #10b981; margin-bottom: 20px;">Instalar App</h3>
+                    <div style="color: white; line-height: 1.6; margin-bottom: 20px;">
+                        <p><strong style="color: #4285f4;">Chrome:</strong> Menu → "Instalar app"</p>
+                        <p><strong style="color: #007AFF;">Safari:</strong> Compartilhar → "Adicionar à Tela"</p>
+                        <p><strong style="color: #ff9500;">Firefox:</strong> Menu → "Instalar"</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: #10b981; color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; cursor: pointer;">
+                        ✅ Entendi
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            setTimeout(() => {
+                if (document.body.contains(modal)) {
+                    document.body.removeChild(modal);
+                }
+            }, 10000);
         }
 
         function continuarSemInstalar() {
