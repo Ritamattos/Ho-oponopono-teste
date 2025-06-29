@@ -737,117 +737,136 @@ function criarNavegacaoCorrigida() {
         styleExistente.remove();
     }
     
-    // Criar nova navegação com a classe original
-    const navigation = document.createElement('div');
-    navigation.className = 'book-navigation';
-    
     const isMobile = window.innerWidth <= 768;
     
-    // Aplicar estilos inline diretamente para garantir que funcionem
+    // Criar CSS primeiro
+    const style = document.createElement('style');
+    style.id = 'navigation-styles';
+    
     if (isMobile) {
-        navigation.style.cssText = `
-            position: fixed !important;
-            bottom: 10px !important;
-            left: 10px !important;
-            right: 10px !important;
-            transform: none !important;
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            gap: 10px !important;
-            background: rgba(30, 0, 60, 0.9) !important;
-            backdrop-filter: blur(20px) !important;
-            padding: 12px 16px !important;
-            border-radius: 25px !important;
-            border: 1px solid rgba(139, 92, 246, 0.3) !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-            z-index: 1001 !important;
-            width: auto !important;
-            max-width: calc(100vw - 20px) !important;
+        style.textContent = `
+            .book-navigation {
+                position: fixed !important;
+                bottom: 10px !important;
+                left: 10px !important;
+                right: 10px !important;
+                transform: none !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                gap: 10px !important;
+                background: rgba(30, 0, 60, 0.9) !important;
+                backdrop-filter: blur(20px) !important;
+                padding: 12px 16px !important;
+                border-radius: 25px !important;
+                border: 1px solid rgba(139, 92, 246, 0.3) !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+                z-index: 1001 !important;
+                width: auto !important;
+            }
+            
+            .nav-btn {
+                flex: 1 !important;
+                max-width: 100px !important;
+                min-width: 80px !important;
+                background: rgba(139, 92, 246, 0.8) !important;
+                border: 1px solid rgba(139, 92, 246, 0.8) !important;
+                color: white !important;
+                padding: 10px 8px !important;
+                border-radius: 20px !important;
+                cursor: pointer !important;
+                font-size: 0.8em !important;
+                font-weight: 600 !important;
+                white-space: nowrap !important;
+                min-height: 44px !important;
+            }
+            
+            .page-indicator {
+                flex: 1 !important;
+                min-width: auto !important;
+                background: rgba(30, 0, 60, 0.8) !important;
+                backdrop-filter: blur(15px) !important;
+                padding: 8px 12px !important;
+                border-radius: 18px !important;
+                color: #e9d5ff !important;
+                font-size: 0.75em !important;
+                border: 1px solid rgba(139, 92, 246, 0.3) !important;
+                font-weight: 600 !important;
+                text-align: center !important;
+                white-space: nowrap !important;
+            }
         `;
     } else {
-        navigation.style.cssText = `
-            position: fixed !important;
-            bottom: 20px !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            gap: 20px !important;
-            background: rgba(30, 0, 60, 0.9) !important;
-            backdrop-filter: blur(20px) !important;
-            padding: 15px 30px !important;
-            border-radius: 25px !important;
-            border: 1px solid rgba(139, 92, 246, 0.3) !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-            z-index: 1001 !important;
-            width: auto !important;
+        style.textContent = `
+            .book-navigation {
+                position: fixed !important;
+                bottom: 20px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 20px !important;
+                background: rgba(30, 0, 60, 0.9) !important;
+                backdrop-filter: blur(20px) !important;
+                padding: 15px 30px !important;
+                border-radius: 25px !important;
+                border: 1px solid rgba(139, 92, 246, 0.3) !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+                z-index: 1001 !important;
+                width: auto !important;
+            }
+            
+            .nav-btn {
+                background: rgba(139, 92, 246, 0.8) !important;
+                border: 1px solid rgba(139, 92, 246, 0.8) !important;
+                color: white !important;
+                padding: 12px 20px !important;
+                border-radius: 20px !important;
+                cursor: pointer !important;
+                font-size: 1em !important;
+                font-weight: 600 !important;
+                white-space: nowrap !important;
+                min-height: 44px !important;
+            }
+            
+            .page-indicator {
+                background: rgba(30, 0, 60, 0.8) !important;
+                backdrop-filter: blur(15px) !important;
+                padding: 10px 20px !important;
+                border-radius: 18px !important;
+                color: #e9d5ff !important;
+                font-size: 0.9em !important;
+                border: 1px solid rgba(139, 92, 246, 0.3) !important;
+                font-weight: 600 !important;
+                text-align: center !important;
+                white-space: nowrap !important;
+                min-width: 150px !important;
+            }
         `;
     }
     
+    document.head.appendChild(style);
+    
+    // Criar elementos HTML
+    const navigation = document.createElement('div');
+    navigation.className = 'book-navigation';
+    
     navigation.innerHTML = `
-        <button id="prevBtn" class="nav-btn" onclick="paginaAnterior()" style="
-            background: rgba(139, 92, 246, 0.8) !important;
-            border: 1px solid rgba(139, 92, 246, 0.8) !important;
-            color: white !important;
-            padding: ${isMobile ? '10px 8px' : '12px 20px'} !important;
-            border-radius: 20px !important;
-            cursor: pointer !important;
-            font-size: ${isMobile ? '0.8em' : '1em'} !important;
-            font-weight: 600 !important;
-            white-space: nowrap !important;
-            min-height: 44px !important;
-            ${isMobile ? 'flex: 1; max-width: 100px; min-width: 80px;' : ''}
-        ">← Anterior</button>
-        
-        <div id="pageInfo" class="page-indicator" style="
-            background: rgba(30, 0, 60, 0.8) !important;
-            backdrop-filter: blur(15px) !important;
-            padding: ${isMobile ? '8px 12px' : '10px 20px'} !important;
-            border-radius: 18px !important;
-            color: #e9d5ff !important;
-            font-size: ${isMobile ? '0.75em' : '0.9em'} !important;
-            border: 1px solid rgba(139, 92, 246, 0.3) !important;
-            font-weight: 600 !important;
-            text-align: center !important;
-            white-space: nowrap !important;
-            ${isMobile ? 'flex: 1; min-width: auto;' : 'min-width: 150px;'}
-        ">Página ${currentPage} de ${totalPages}</div>
-        
-        <button id="nextBtn" class="nav-btn" onclick="proximaPagina()" style="
-            background: rgba(139, 92, 246, 0.8) !important;
-            border: 1px solid rgba(139, 92, 246, 0.8) !important;
-            color: white !important;
-            padding: ${isMobile ? '10px 8px' : '12px 20px'} !important;
-            border-radius: 20px !important;
-            cursor: pointer !important;
-            font-size: ${isMobile ? '0.8em' : '1em'} !important;
-            font-weight: 600 !important;
-            white-space: nowrap !important;
-            min-height: 44px !important;
-            ${isMobile ? 'flex: 1; max-width: 100px; min-width: 80px;' : ''}
-        ">Próxima →</button>
+        <button id="prevBtn" class="nav-btn" onclick="paginaAnterior()">← Anterior</button>
+        <div id="pageInfo" class="page-indicator">Página ${currentPage} de ${totalPages}</div>
+        <button id="nextBtn" class="nav-btn" onclick="proximaPagina()">Próxima →</button>
     `;
     
     document.body.appendChild(navigation);
     
-    // Adicionar event listeners para hover
-    const buttons = navigation.querySelectorAll('.nav-btn');
-    buttons.forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-            this.style.background = 'rgba(139, 92, 246, 1) !important';
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.5) !important';
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.style.background = 'rgba(139, 92, 246, 0.8) !important';
-            this.style.transform = 'none';
-            this.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.3) !important';
-        });
-    });
+    // Forçar recálculo do layout
+    setTimeout(() => {
+        navigation.style.display = 'none';
+        navigation.offsetHeight; // Trigger reflow
+        navigation.style.display = 'flex';
+    }, 10);
 }
 
 // Remover a função adicionarEstilosNavegacao pois não é mais necessária
