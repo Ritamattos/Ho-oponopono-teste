@@ -255,45 +255,68 @@
         // Variáveis para PWA install
         let deferredPrompt;
 
-        // PWA INSTALL FUNCTIONALITY
+        // PWA INSTALL FUNCTIONALITY OTIMIZADA
         window.addEventListener('beforeinstallprompt', (e) => {
             console.log('💾 PWA install prompt detectado');
             e.preventDefault();
             deferredPrompt = e;
             
-            // Atualizar botão na tela de download
-            if (!window.matchMedia('(display-mode: standalone)').matches) {
-                console.log('📱 PWA pode ser instalado');
-                // Botão já está visível na tela de download
+            // Atualizar texto do botão quando PWA real está disponível
+            const installBtn = document.getElementById('installBtnMain');
+            if (installBtn && !window.matchMedia('(display-mode: standalone)').matches) {
+                installBtn.innerHTML = '📲 Instalar App (PWA)';
+                installBtn.style.background = 'linear-gradient(45deg, #10b981, #8b5cf6)';
+                console.log('📱 PWA real disponível para instalação');
             }
         });
 
         function instalarApp() {
             console.log('🔄 Tentando instalar app...');
+            
             if (deferredPrompt) {
+                // PWA REAL DISPONÍVEL
+                console.log('✅ Instalando PWA real...');
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('✅ Usuário aceitou instalar o app');
-                        // Ir direto para tela inicial após instalação
+                        console.log('🎉 PWA instalado com sucesso!');
                         irParaTelaInicial();
                     } else {
-                        console.log('❌ Usuário cancelou a instalação');
-                        // Perguntar se quer continuar mesmo assim
-                        if (confirm('Deseja continuar sem instalar o app?')) {
-                            irParaTelaInicial();
-                        }
+                        console.log('❌ Usuário cancelou a instalação PWA');
+                        // Perguntar se quer continuar
+                        setTimeout(() => {
+                            if (confirm('Deseja continuar usando o app no navegador?')) {
+                                irParaTelaInicial();
+                            }
+                        }, 500);
                     }
                     deferredPrompt = null;
                 });
             } else {
-                // Fallback para iOS Safari ou se não houver prompt
-                console.log('ℹ️ Sem prompt disponível, mostrando instruções');
-                alert('📱 Para instalar:\n\niOS Safari: Toque em "Compartilhar" → "Adicionar à Tela de Início"\n\nAndroid Chrome: Menu → "Instalar App" ou "Adicionar à tela inicial"');
-                // Continuar para o app após mostrar instruções
+                // DETECTAR TIPO DE DISPOSITIVO E BROWSER
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                const isAndroid = /Android/.test(navigator.userAgent);
+                const isChrome = /Chrome/.test(navigator.userAgent) && !/Edg/.test(navigator.userAgent);
+                const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+                
+                console.log(`📱 Dispositivo: iOS=${isIOS}, Android=${isAndroid}, Chrome=${isChrome}, Safari=${isSafari}`);
+                
+                if (isIOS && isSafari) {
+                    // INSTRUÇÕES ESPECÍFICAS PARA iOS SAFARI
+                    alert('📱 Para instalar no iPhone:\n\n1️⃣ Toque no ícone "Compartilhar" (quadrado com seta)\n2️⃣ Role para baixo e toque em "Adicionar à Tela de Início"\n3️⃣ Toque em "Adicionar"\n\n✨ O app aparecerá na sua tela inicial!');
+                } else if (isAndroid && isChrome) {
+                    // FORÇAR MENU DO CHROME ANDROID
+                    alert('📱 Para instalar no Android:\n\n1️⃣ Toque no menu (3 pontos) no canto superior direito\n2️⃣ Toque em "Instalar app" ou "Adicionar à tela inicial"\n3️⃣ Confirme a instalação\n\n✨ O app será instalado como um app nativo!');
+                } else {
+                    // GENÉRICO
+                    alert('📱 Para instalar este app:\n\n• Chrome: Menu → "Instalar app"\n• Safari: Compartilhar → "Adicionar à Tela de Início"\n• Firefox: Menu → "Instalar"\n\n✨ Funciona como um app real após instalação!');
+                }
+                
+                // SEMPRE CONTINUAR PARA O APP APÓS INSTRUÇÕES
                 setTimeout(() => {
+                    console.log('➡️ Continuando para o app...');
                     irParaTelaInicial();
-                }, 1000);
+                }, 2000);
             }
         }
 
@@ -309,17 +332,38 @@
 
         // Detectar se app já está instalado
         window.addEventListener('appinstalled', (evt) => {
-            console.log('🎉 App foi instalado!');
+            console.log('🎉 App foi instalado via evento!');
             irParaTelaInicial();
         });
 
         // Verificar se está rodando como PWA instalado
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
             console.log('📱 Rodando como app instalado - pulando tela de download');
-            // Se já está instalado, pular direto para tela inicial
             document.getElementById('downloadScreen').style.display = 'none';
             document.getElementById('splash').style.display = 'flex';
         }
+
+        // TENTAR REGISTRAR SERVICE WORKER PARA MELHORAR PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registrado:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('ℹ️ Service Worker não registrado:', error);
+                    });
+            });
+        }
+
+        // FORÇAR PROMPT EM ALGUNS CASOS
+        setTimeout(() => {
+            if (!deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('⚡ Tentando forçar detecção PWA...');
+                // Adicionar classe para trigger manual se necessário
+                document.body.classList.add('pwa-ready');
+            }
+        }, 3000);
 
         // Suas funções originais do app
         function contarCliquesSecretos() {
