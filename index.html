@@ -9,13 +9,13 @@
     <meta name="description" content="Ho'oponopono - Jornada de Cura e Transformação. Pratique a antiga técnica havaiana de limpeza e perdão.">
     <meta name="keywords" content="hooponopono, ho'oponopono, meditação, cura, transformação, havaí, perdão">
     <meta name="author" content="Rita Mattos">
-
+    
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Ho'oponopono - Jornada de Cura e Transformação">
     <meta property="og:description" content="Pratique a antiga técnica havaiana de limpeza e perdão">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://via.placeholder.com/1200x630/8b5cf6/ffffff?text=Ho'oponopono">
-
+    
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#8b5cf6">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,58 +30,22 @@
         <div class="nebula"></div>
         <div class="nebula"></div>
     </div>
-    <div class="app-container">
-        <!-- NOVA TELA DE DOWNLOAD (só o card) -->
-        <div class="download-screen" id="downloadScreen">
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; padding: 20px;">
-                
-                <!-- Card Principal de Download (SEM logo e título) -->
-                <div style="background: rgba(30, 0, 60, 0.4); backdrop-filter: blur(15px); border: 2px solid rgba(139, 92, 246, 0.4); border-radius: 25px; padding: clamp(30px, 8vw, 40px); max-width: 450px; width: 100%; margin-bottom: 30px; animation: pulse 3s ease-in-out infinite;">
-                    
-                    <div style="font-size: clamp(48px, 12vw, 64px); margin-bottom: 20px;">📱</div>
-                    
-                    <h2 style="color: #10b981; font-size: clamp(1.5em, 6vw, 2em); margin-bottom: 15px; font-weight: bold;">Instale o App Completo</h2>
-                    
-                    <p style="color: #e9d5ff; font-size: clamp(1em, 4vw, 1.1em); line-height: 1.6; margin-bottom: 25px;">
-                        ✨ Acesso offline<br>
-                        🚀 Experiência nativa<br>
-                        🔔 Notificações personalizadas<br>
-                        💾 Seus dados salvos sempre
-                    </p>
-                    
-                    <!-- Botão de Install -->
-                    <button id="installBtnMain" style="background: linear-gradient(45deg, #10b981, #8b5cf6); color: white; border: none; padding: 18px 35px; border-radius: 30px; font-size: clamp(1.1em, 4.5vw, 1.3em); font-weight: 700; cursor: pointer; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); transition: all 0.3s ease; width: 100%; margin-bottom: 15px;" onclick="instalarApp()" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                        📲 Instalar Agora
-                    </button>
-                    
-                    <!-- Botão Continuar sem Instalar -->
-                    <button style="background: rgba(255, 255, 255, 0.1); color: #c4b5fd; border: 2px solid rgba(196, 181, 253, 0.3); padding: 12px 25px; border-radius: 25px; font-size: clamp(1em, 3.5vw, 1.1em); cursor: pointer; transition: all 0.3s ease; width: 100%;" onclick="continuarSemInstalar()" onmouseover="this.style.background='rgba(255, 255, 255, 0.2)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">
-                        Continuar sem instalar
-                    </button>
-                </div>
-                
-                <!-- Informações Adicionais -->
-                <div style="color: #a78bfa; font-size: clamp(0.9em, 3vw, 1em); text-align: center; max-width: 400px; line-height: 1.5;">
-                    <p>🔒 Totalmente seguro e gratuito</p>
-                    <p style="margin-top: 10px;">Compatible com Android e iOS</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- SEU HTML ORIGINAL COMPLETO (inalterado) -->
+    <div class="app-container">
         <!-- Tela Inicial -->
-        <div class="splash-screen" id="splash" style="display: none;">
+        <div class="splash-screen" id="splash">
             <div class="logo" id="logoSecret" onclick="contarCliquesSecretos()">🙏</div>
             <h1>Ho'oponopono</h1>
             <p class="subtitle">Jornada de Cura e Transformação</p>
             <input type="text" class="name-input" id="name" placeholder="Digite seu nome" maxlength="30">
             <button class="btn" onclick="entrarApp()" id="btnIniciarJornada">Iniciar Jornada</button>
-
+            
             <!-- Acesso Admin (totalmente escondido) -->
             <div id="botaoAdminSecreto" style="display: none; position: absolute; bottom: 10px; right: 10px;">
                 <button style="background: rgba(139, 92, 246, 0.8); border: none; color: white; padding: 8px 12px; border-radius: 5px; font-size: 0.9em; cursor: pointer; animation: pulse 2s infinite;" onclick="abrirLoginAdmin()">🔐 Acesso Admin</button>
             </div>
         </div>
+
         <!-- Tela Principal -->
         <div class="main-screen" id="main">
             <!-- Header -->
@@ -97,6 +61,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Conteúdo Principal - Início -->
             <div id="homeContent" class="content-section active">
                 <h2 style="margin-bottom: 20px; color: #e9d5ff; font-size: clamp(1.5em, 5vw, 2em);">📚 Módulos de Aprendizado</h2>
@@ -104,6 +69,7 @@
                     <!-- Módulos serão carregados dinamicamente -->
                 </div>
             </div>
+
             <!-- Conteúdo - Diário -->
             <div id="diaryContent" class="content-section">
                 <h2 style="margin-bottom: 20px; color: #e9d5ff; font-size: clamp(1.5em, 5vw, 2em);">📖 Meu Diário Ho'oponopono</h2>
@@ -112,16 +78,17 @@
                     <textarea id="diaryText" style="width: 100%; min-height: 150px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 10px; padding: 15px; color: white; font-size: clamp(1em, 3vw, 1.1em); resize: vertical;" placeholder="Como foi sua prática hoje? O que você limpou?"></textarea>
                     <button class="btn" style="margin-top: 15px;" onclick="salvarDiario()">Salvar Entrada</button>
                 </div>
-
+                
                 <h3 style="color: #e9d5ff; margin-bottom: 15px; font-size: clamp(1.2em, 4vw, 1.5em);">Entradas Anteriores</h3>
                 <div id="entradas" style="background: rgba(30, 0, 60, 0.3); backdrop-filter: blur(10px); border-radius: 20px; padding: 20px; border: 1px solid rgba(139, 92, 246, 0.3);">
                     <p style="color: #c4b5fd; text-align: center;">Suas entradas aparecerão aqui</p>
                 </div>
             </div>
+
             <!-- Conteúdo - Áudios -->
             <div id="audioContent" class="content-section">
                 <h2 style="margin-bottom: 20px; color: #e9d5ff; font-size: clamp(1.5em, 5vw, 2em);">🎵 Biblioteca de Áudios</h2>
-
+                
                 <div class="modules-grid" id="audioGrid">
                     <!-- Áudios serão adicionados dinamicamente aqui -->
                     <div id="mensagemSemAudios" style="grid-column: 1/-1; text-align: center; padding: 40px; background: rgba(30, 0, 60, 0.3); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(139, 92, 246, 0.3);">
@@ -131,13 +98,14 @@
                     </div>
                 </div>
             </div>
+
             <!-- Conteúdo - Comunidade -->
             <div id="communityContent" class="content-section">
                 <h2 style="margin-bottom: 20px; color: #e9d5ff; font-size: clamp(1.5em, 5vw, 2em);">👥 Comunidade Ho'oponopono</h2>
                 <div style="background: rgba(30, 0, 60, 0.3); backdrop-filter: blur(10px); border-radius: 20px; padding: clamp(20px, 5vw, 30px); border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 20px;">
                     <h3 style="color: #a78bfa; margin-bottom: 15px; font-size: clamp(1.2em, 4vw, 1.5em);">Compartilhe sua Experiência</h3>
                     <textarea id="postText" style="width: 100%; min-height: 100px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 10px; padding: 15px; color: white; font-size: clamp(1em, 3vw, 1.1em);" placeholder="Compartilhe sua jornada com outros praticantes..."></textarea>
-
+                    
                     <!-- Upload de imagem -->
                     <div style="margin-top: 15px;">
                         <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="mostrarPreview(event)">
@@ -149,10 +117,10 @@
                             <button class="delete-btn" onclick="removerImagem()" style="margin-left: 10px;">✕ Remover</button>
                         </div>
                     </div>
-
+                    
                     <button class="btn" style="margin-top: 15px;" onclick="publicarPost()">Publicar</button>
                 </div>
-
+                
                 <h3 style="color: #e9d5ff; margin-bottom: 15px; font-size: clamp(1.2em, 4vw, 1.5em);">Posts Recentes</h3>
                 <div id="posts">
                     <div style="background: rgba(30, 0, 60, 0.3); backdrop-filter: blur(10px); border-radius: 20px; padding: 20px; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 15px;">
@@ -164,7 +132,7 @@
                             </div>
                         </div>
                         <p style="line-height: 1.6; margin-bottom: 15px;">Hoje pratiquei Ho'oponopono no trabalho e senti uma paz incrível! Gratidão 🙏</p>
-
+                        
                         <!-- Seção de comentários -->
                         <div style="border-top: 1px solid rgba(139, 92, 246, 0.2); padding-top: 15px;">
                             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
@@ -178,6 +146,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Bottom Navigation -->
             <div class="bottom-nav">
                 <div class="nav-item active" onclick="irPara('home')">
@@ -198,6 +167,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal Login Admin -->
         <div id="loginAdmin" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center;">
             <div style="background: rgba(30, 0, 60, 0.9); padding: clamp(20px, 5vw, 40px); border-radius: 20px; border: 1px solid rgba(139, 92, 246, 0.3); text-align: center; max-width: 90vw; width: 400px;">
@@ -212,6 +182,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal Painel Admin -->
         <div id="painelAdmin" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 2000; padding: clamp(10px, 3vw, 20px); overflow-y: auto;">
             <div style="max-width: min(800px, 95vw); margin: 0 auto; background: rgba(30, 0, 60, 0.9); padding: clamp(15px, 4vw, 30px); border-radius: 20px; border: 1px solid rgba(139, 92, 246, 0.3);">
@@ -222,44 +193,44 @@
                         <button style="background: #ef4444; color: white; border: none; padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 15px); border-radius: 5px; cursor: pointer; font-size: clamp(12px, 3vw, 14px); min-height: 40px;" onclick="fecharPainelAdmin()">✕ Fechar</button>
                     </div>
                 </div>
-
+                
                 <div style="display: grid; grid-template-columns: 1fr; gap: clamp(15px, 4vw, 20px);">
                     <!-- Editor de Módulos -->
                     <div style="background: rgba(0,0,0,0.2); padding: clamp(15px, 4vw, 20px); border-radius: 10px;">
                         <h3 style="color: #10b981; margin-bottom: 15px; font-size: clamp(1.2em, 4vw, 1.4em);">📝 Editor de Módulos</h3>
-
+                        
                         <!-- Seletor de Módulo -->
                         <select id="seletorModulo" onchange="carregarModuloEditor()" style="width: 100%; margin-bottom: 15px; padding: clamp(6px, 2vw, 8px); border-radius: 5px; border: 1px solid #666; background: rgba(0,0,0,0.3); color: white; font-size: clamp(14px, 3vw, 16px);">
                             <option value="">Selecione um módulo para editar</option>
                         </select>
-
+                        
                         <!-- Ou criar novo -->
                         <div style="text-align: center; margin: 15px 0; color: #c4b5fd; font-size: clamp(1em, 3vw, 1.1em);">ou</div>
-
+                        
                         <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
                             <input type="text" id="novoModuloTitulo" placeholder="Título do novo módulo" style="flex: 1; min-width: 200px; padding: clamp(6px, 2vw, 8px); border-radius: 5px; border: 1px solid #666; background: rgba(0,0,0,0.3); color: white; font-size: clamp(14px, 3vw, 16px);">
                             <input type="text" id="novoModuloDescricao" placeholder="Descrição" style="flex: 1; min-width: 200px; padding: clamp(6px, 2vw, 8px); border-radius: 5px; border: 1px solid #666; background: rgba(0,0,0,0.3); color: white; font-size: clamp(14px, 3vw, 16px);">
                             <button style="background: #10b981; color: white; border: none; padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 15px); border-radius: 5px; cursor: pointer; font-size: clamp(12px, 3vw, 14px); min-height: 40px; white-space: nowrap;" onclick="criarNovoModulo()">Criar Novo</button>
                         </div>
                     </div>
-
+                    
                     <!-- Editor de Páginas -->
                     <div id="editorPaginas" style="background: rgba(0,0,0,0.2); padding: clamp(15px, 4vw, 20px); border-radius: 10px; display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                             <h3 style="color: #8b5cf6; font-size: clamp(1.2em, 4vw, 1.4em);">📄 Editor de Páginas</h3>
                             <button style="background: #10b981; color: white; border: none; padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 15px); border-radius: 5px; cursor: pointer; font-size: clamp(12px, 3vw, 14px); min-height: 40px;" onclick="adicionarNovaPagina()">+ Nova Página</button>
                         </div>
-
+                        
                         <!-- Lista de páginas -->
                         <div id="listaPaginas" style="margin-bottom: 20px;"></div>
-
+                        
                         <!-- Editor da página atual -->
                         <div id="editorPaginaAtual" style="display: none;">
                             <h4 style="color: #a78bfa; margin-bottom: 10px; font-size: clamp(1.1em, 3.5vw, 1.3em);">Editando Página <span id="numeroPaginaAtual"></span></h4>
-
+                            
                             <!-- Título da página -->
                             <input type="text" id="tituloPagina" placeholder="Título da página" style="width: 100%; margin-bottom: 10px; padding: clamp(6px, 2vw, 8px); border-radius: 5px; border: 1px solid #666; background: rgba(0,0,0,0.3); color: white; font-size: clamp(14px, 3vw, 16px);">
-
+                            
                             <!-- Editor de conteúdo -->
                             <div style="margin-bottom: 15px;">
                                 <div style="display: flex; gap: clamp(5px, 2vw, 10px); margin-bottom: 10px; flex-wrap: wrap;">
@@ -269,24 +240,24 @@
     <button style="background: #ef4444; color: white; border: none; padding: clamp(4px, 1vw, 5px) clamp(8px, 2vw, 10px); border-radius: 3px; cursor: pointer; font-size: clamp(12px, 2.5vw, 14px); min-height: 36px;" onclick="adicionarElemento('imagem')">+ Imagem</button>
     <button style="background: #a78bfa; color: white; border: none; padding: clamp(4px, 1vw, 5px) clamp(8px, 2vw, 10px); border-radius: 3px; cursor: pointer; font-size: clamp(12px, 2.5vw, 14px); min-height: 36px;" onclick="adicionarElemento('frases4')">🌺 4 Frases</button>
 </div>
-
+                                
                                 <!-- Área de conteúdo -->
                                 <div id="areaConteudo" style="border: 1px solid #666; border-radius: 5px; padding: 15px; min-height: 200px; background: rgba(0,0,0,0.1);">
                                     <p style="color: #999; text-align: center; font-size: clamp(14px, 3vw, 16px);">Clique nos botões acima para adicionar elementos à página</p>
                                 </div>
                             </div>
-
+                            
                             <div style="display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;">
                                 <button style="background: #10b981; color: white; border: none; padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 15px); border-radius: 5px; cursor: pointer; font-size: clamp(12px, 3vw, 14px); min-height: 40px;" onclick="salvarPaginaAtual()">💾 Salvar Página</button>
                                 <button style="background: #ef4444; color: white; border: none; padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 15px); border-radius: 5px; cursor: pointer; font-size: clamp(12px, 3vw, 14px); min-height: 40px;" onclick="excluirPaginaAtual()">🗑️ Excluir Página</button>
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- Upload de Áudios -->
                     <div style="background: rgba(0,0,0,0.2); padding: clamp(15px, 4vw, 20px); border-radius: 10px;">
                         <h3 style="color: #f59e0b; margin-bottom: 15px; font-size: clamp(1.2em, 4vw, 1.4em);">🎵 Upload de Áudios</h3>
-
+                        
                         <!-- Dicas de formato -->
                         <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: clamp(8px, 2vw, 12px); margin-bottom: 15px;">
                             <h4 style="color: #10b981; margin-bottom: 8px; font-size: clamp(12px, 3vw, 14px);">📋 Formatos Recomendados:</h4>
@@ -298,22 +269,22 @@
                             </ul>
                             <p style="color: #fbbf24; font-size: clamp(11px, 2.5vw, 13px); margin-top: 8px;">💡 Se tiver problemas, converta para MP3 primeiro!</p>
                         </div>
-
+                        
                         <input type="file" id="uploadAudio" accept="audio/*" style="margin-bottom: 10px; width: 100%; padding: clamp(6px, 2vw, 8px); border-radius: 5px; border: 1px solid #666; background: rgba(0,0,0,0.3); color: white; font-size: clamp(14px, 3vw, 16px);">
                         <input type="text" id="nomeAudio" placeholder="Nome do áudio (ex: Meditação das 4 Frases)" style="width: 100%; margin-bottom: 10px; padding: clamp(6px, 2vw, 8px); border-radius: 5px; border: 1px solid #666; background: rgba(0,0,0,0.3); color: white; font-size: clamp(14px, 3vw, 16px);">
                         <input type="text" id="descricaoAudio" placeholder="Descrição (ex: Limpeza Financeira • 15 min)" style="width: 100%; margin-bottom: 10px; padding: clamp(6px, 2vw, 8px); border-radius: 5px; border: 1px solid #666; background: rgba(0,0,0,0.3); color: white; font-size: clamp(14px, 3vw, 16px);">
                         <button style="background: #f59e0b; color: white; border: none; padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 15px); border-radius: 5px; cursor: pointer; width: 100%; font-size: clamp(14px, 3vw, 16px); min-height: 44px;" onclick="adicionarAudio()" id="btnUploadAudio">📤 Adicionar Áudio</button>
-
+                        
                         <!-- Status do upload -->
                         <div id="statusUpload" style="margin-top: 10px; padding: clamp(6px, 2vw, 8px); border-radius: 5px; display: none;">
                             <span id="statusTexto"></span>
                         </div>
-
+                        
                         <!-- Botão de teste -->
                         <button style="background: #8b5cf6; color: white; border: none; padding: clamp(4px, 1.5vw, 6px) clamp(8px, 2.5vw, 12px); border-radius: 5px; cursor: pointer; width: 100%; margin-top: 8px; font-size: clamp(12px, 3vw, 14px); min-height: 40px;" onclick="testarAudioBasico()">🧪 Teste de Áudio Básico</button>
                     </div>
                 </div>
-
+                
                 <!-- Estatísticas -->
                 <div style="margin-top: clamp(20px, 5vw, 30px); background: rgba(0,0,0,0.2); padding: clamp(15px, 4vw, 20px); border-radius: 10px;">
                     <h3 style="color: #a78bfa; margin-bottom: 15px; font-size: clamp(1.2em, 4vw, 1.4em);">📊 Estatísticas do App</h3>
@@ -334,6 +305,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Book Reader Modal -->
         <div class="book-reader" id="book">
             <div class="book-container">
@@ -341,13 +313,13 @@
                     <h2 id="bookTitle" style="color: #e9d5ff; font-size: clamp(1.2em, 4vw, 1.5em);">Módulo</h2>
                     <button class="close-btn" onclick="fecharLivro()">✕</button>
                 </div>
-
+                
                 <div class="flipbook-container">
                     <div class="book" id="flipbook">
                         <!-- Páginas serão inseridas dinamicamente -->
                     </div>
                 </div>
-
+                
                 <div class="book-navigation">
                     <button class="nav-btn" id="prevBtn" onclick="paginaAnterior()">
                         ← Anterior
@@ -363,150 +335,6 @@
         </div>
     </div>
 
-    <script>
-        // Variáveis para PWA install
-        let deferredPrompt;
-
-        // PWA INSTALL FUNCTIONALITY
-        window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('💾 PWA install prompt detectado');
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-
-        function instalarApp() {
-            console.log('🔄 Tentando instalar app...');
-            
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('✅ Usuário aceitou instalar o app');
-                        irParaTelaInicial();
-                    } else {
-                        console.log('❌ Usuário cancelou a instalação');
-                        irParaTelaInicial();
-                    }
-                    deferredPrompt = null;
-                });
-            } else {
-                // Fallback para iOS Safari ou se não houver prompt
-                console.log('ℹ️ Sem prompt disponível, mostrando instruções');
-                alert('📱 Para instalar:\n\niOS Safari: Toque em "Compartilhar" → "Adicionar à Tela de Início"\n\nAndroid Chrome: Menu → "Instalar App" ou "Adicionar à tela inicial"');
-                irParaTelaInicial();
-            }
-        }
-
-        function continuarSemInstalar() {
-            console.log('➡️ Usuário escolheu continuar sem instalar');
-            irParaTelaInicial();
-        }
-
-        function irParaTelaInicial() {
-            document.getElementById('downloadScreen').style.display = 'none';
-            document.getElementById('splash').style.display = 'flex';
-        }
-
-        // Detectar se app já está instalado
-        window.addEventListener('appinstalled', (evt) => {
-            console.log('🎉 App foi instalado!');
-            irParaTelaInicial();
-        });
-
-        // Verificar se está rodando como PWA instalado
-        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-            console.log('📱 Rodando como app instalado - pulando tela de download');
-            document.getElementById('downloadScreen').style.display = 'none';
-            document.getElementById('splash').style.display = 'flex';
-        }
-
-        // CORREÇÃO DA NAVEGAÇÃO DO BOOK READER
-        document.addEventListener('DOMContentLoaded', function() {
-            // Adicionar CSS para corrigir a posição da navegação
-            const style = document.createElement('style');
-            style.textContent = `
-                /* Forçar navegação sobreposta no meio da página */
-                .book-navigation {
-                    position: absolute !important;
-                    bottom: 80px !important;
-                    left: 50% !important;
-                    transform: translateX(-50%) !important;
-                    z-index: 1000 !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    gap: 20px !important;
-                    background: rgba(0, 0, 0, 0.8) !important;
-                    backdrop-filter: blur(10px) !important;
-                    padding: 15px 25px !important;
-                    border-radius: 25px !important;
-                    border: 1px solid rgba(139, 92, 246, 0.3) !important;
-                    margin: 0 !important;
-                    width: auto !important;
-                }
-
-                .book-navigation .nav-btn {
-                    background: #8b5cf6 !important;
-                    color: white !important;
-                    border: none !important;
-                    padding: 12px 20px !important;
-                    border-radius: 10px !important;
-                    cursor: pointer !important;
-                    font-size: 14px !important;
-                    transition: all 0.3s ease !important;
-                    min-height: 44px !important;
-                }
-
-                .book-navigation .nav-btn:hover {
-                    background: #7c3aed !important;
-                    transform: translateY(-2px) !important;
-                }
-
-                .book-navigation .nav-btn:disabled {
-                    background: #666 !important;
-                    cursor: not-allowed !important;
-                    transform: none !important;
-                }
-
-                .book-navigation .page-indicator {
-                    color: #c4b5fd !important;
-                    font-size: 14px !important;
-                    text-align: center !important;
-                    min-width: 120px !important;
-                }
-
-                /* Mobile: manter sobreposto e centralizado */
-                @media (max-width: 768px) {
-                    .book-navigation {
-                        position: absolute !important;
-                        bottom: 60px !important;
-                        left: 50% !important;
-                        transform: translateX(-50%) !important;
-                        width: auto !important;
-                        max-width: calc(100vw - 40px) !important;
-                        padding: 12px 20px !important;
-                        gap: 15px !important;
-                    }
-
-                    .book-navigation .nav-btn {
-                        padding: 10px 15px !important;
-                        font-size: 12px !important;
-                        min-width: 80px !important;
-                    }
-
-                    .book-navigation .page-indicator {
-                        font-size: 12px !important;
-                        min-width: 100px !important;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        });
-
-        // Log de inicialização
-        console.log('🌺 Ho\'oponopono App carregado com sucesso!');
-    </script>
-    
     <script src="script.js"></script>
 </body>
 </html>
